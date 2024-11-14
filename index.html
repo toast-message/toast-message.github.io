@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast Message Example</title>
+    <script src="element.js"></script>
+    <style>
+        body {
+            font: 21px Arial;
+            --toast-message-background: gold;
+            --toast-message-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>&lt;toast-message></h1>
+    <p>Loading <code>https://toast-message.github.io/element.js</code> will inject a &lt;toast-message> Tag at the end
+        of the document (no need to add it yourself)</p>
+    <p>The Web Components listens at <code>document</code> level for a <code>toast-message</code> Event</p>
+    <p>The <code>Event details</code> Object takes a <code>message [String]</code> and <b>optional</b> <code>options<code> [Object]</p>
+        <p>example:<code>document.dispatchEvent(new CustomEvent("message", { delay:1000} ))</code></p>
+    <p>There is also a matching <b>global function</b> <code>showToastMessage( String, Object )</code> for ease of use
+    </p>
+    <!-- <toast-message></toast-message> injected by element.js -->
+    <button onclick="window.showToast()">Show Toast</button>
+    <input id="MSG" value="Example Message">
+    <!-- <toast-message delay="1500">21</toast-message> -->
+    <script>
+        function showToast() {
+            let randomString = "MSG: " + Math.random().toString(36).substring(2, 7);
+            let delay = Math.floor(Math.random() * (4000 - 1000 + 1)) + 1000;
+            // defined by element.js
+            window.showToastMessage(MSG.value, { delay: delay });
+        }
+    </script>
+</body>
+
+</html>
