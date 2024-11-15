@@ -68,7 +68,7 @@
             delay = Math.floor(Math.random() * (4000 - 1000 + 1)) + 1000 // random delay between 1 and 4 seconds
         ) {
             // optional global function defined by element.js
-            window.showToastMessage(msg, { delay });
+            window.showToastMessage(msg, delay );
         }
         setTimeout(() => {
             showToast("<toast-message delay='10000'>", 10000);
