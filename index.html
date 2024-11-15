@@ -45,14 +45,15 @@
         of the document<br>(no need to add it yourself)</p>
     <p>The Web Component listens at <code>document</code> level for a <code>"toast-message"</code> Event</p>
     <p>The <code>Event details</code> Object takes a <code>message [String]</code> and <b>optional</b>
-        <code>options</code> [Object]
+        <code>delay</code> [Integer-milliseconds]
     </p>
     <p>example:
-        <code>document.dispatchEvent(new CustomEvent("message", { delay:1000 } ))</code>
+        <code>document.dispatchEvent(new CustomEvent("toast-message", { message:"I am toast", delay:1000 } ))</code>
     </p>
-    <p>There is also a matching <b>global function</b> <code>showToastMessage( String, Object )</code> for ease of use
+    <p>There is also a matching <b>global function</b> <code>showToastMessage( message, delay )</code> for ease of use
     </p>
-    <p>Stylable with <code>--toast-message-background</code> and <code>--toast-message-color</code> CSS properties, and
+    <p>Toasts are stylable with <code>--toast-message-background</code> and <code>--toast-message-color</code> CSS
+        properties, and
         <code>::part(toast)</code>
     </p>
     <section id="demo">

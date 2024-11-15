@@ -14,8 +14,8 @@
 
   // ========================================================================== global function
   // global handle for ease of use
-  window.showToastMessage = (message, options) =>
-    document.querySelector("toast-message").show(message, options);
+  window.showToastMessage = (message, delay) =>
+    document.querySelector("toast-message").show(message, delay);
 
   // ========================================================================== define <toast-message> element
   customElements.define(
@@ -51,11 +51,7 @@
       connectedCallback() {
         this.listen({
           type: this.localName, // event name
-          func: (evt) =>
-            this.show(
-              evt.detail.message,
-              evt.detail.options || {} // function
-            ),
+          func: (evt) => this.show(evt.detail.message, evt.detail.delay),
         });
       }
       // ---------------------------------------------------------------------- listeners
@@ -73,7 +69,7 @@
       // ----------------------------------------------------------------------
       show(
         textContent,
-        { delay = this.getAttribute("delay") || 5000 } = {},
+        delay = this.getAttribute("delay") || 5000,
         toast = createElement("div", {
           part: "toast",
           textContent,
