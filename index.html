@@ -6,36 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toast Message Example</title>
     <script src="element.js"></script>
+    <script src="https://file-size.github.io/element.js"></script>
     <style>
         body {
             font: 21px Arial;
+            background: beige;
+            max-width: 1224px;
+            margin: 0 auto;
             --toast-message-background: gold;
             --toast-message-color: black;
+        }
+
+        code {
+            background: lightgrey;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+
+        #demo {
+            zoom:2;
+        }
+
+        toast-message::part(toast) {
+            color: blue
         }
     </style>
 </head>
 
 <body>
     <h1>&lt;toast-message></h1>
+    <p><a href="https://github.com/toast-message/toast-message.github.io">GitHub</a></p>
     <p>Loading <code>https://toast-message.github.io/element.js</code> will inject a &lt;toast-message> Tag at the end
-        of the document (no need to add it yourself)</p>
-    <p>The Web Components listens at <code>document</code> level for a <code>toast-message</code> Event</p>
-    <p>The <code>Event details</code> Object takes a <code>message [String]</code> and <b>optional</b> <code>options<code> [Object]</p>
-        <p>example:<code>document.dispatchEvent(new CustomEvent("message", { delay:1000} ))</code></p>
+        of the document<br>(no need to add it yourself)</p>
+        <p>The Web Component listens at <code>document</code> level for a <code>"toast-message"</code> Event</p>
+        <p>The <code>Event details</code> Object takes a <code>message [String]</code> and <b>optional</b>
+            <code>options</code> [Object]
+        </p>
+        <p>example:
+            <code>document.dispatchEvent(new CustomEvent("message", { delay:1000 } ))</code>
+        </p>
     <p>There is also a matching <b>global function</b> <code>showToastMessage( String, Object )</code> for ease of use
     </p>
+    <p>Stylable with <code>--toast-message-background</code> and <code>--toast-message-color</code> CSS properties, and
+        <code>::part(toast)</code>
+    </p>
+    <section id="demo">
+        <button onclick="window.showToast()">Show Toast</button>
+        <input id="MSG" value="Example Message">
+    </section>
     <!-- <toast-message></toast-message> injected by element.js -->
-    <button onclick="window.showToast()">Show Toast</button>
-    <input id="MSG" value="Example Message">
     <!-- <toast-message delay="1500">21</toast-message> -->
     <script>
         function showToast() {
             let randomString = "MSG: " + Math.random().toString(36).substring(2, 7);
-            let delay = Math.floor(Math.random() * (4000 - 1000 + 1)) + 1000;
-            // defined by element.js
-            window.showToastMessage(MSG.value, { delay: delay });
+            let delay = Math.floor(Math.random() * (4000 - 1000 + 1)) + 1000; // random delay between 1 and 4 seconds
+            // optional global function defined by element.js
+            window.showToastMessage(MSG.value || randomString, { delay: delay });
         }
     </script>
+    <br>
+    <br>
+    <br>
+    <h3>GZIP Analysis</h3>
+    <div id="gzip">
+        <file-size gz src="http://127.0.0.1:3000/element.js"></file-size>
+    
+    </div>
 </body>
 
 </html>

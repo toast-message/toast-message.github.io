@@ -4,16 +4,19 @@
   // ==========================================================================
   const createElement = (tag, props = {}) =>
     Object.assign(document.createElement(tag), props);
+
   // ==========================================================================
   // injects the toast-message element into the document!!
   setTimeout(() => {
     document.body.appendChild(createElement("toast-message"));
     //.show("Hello, App!", { delay: 200 });
   }, 1000); // inject at end of DOM
+
   // ==========================================================================
   // global handle for ease of use
   window.showToastMessage = (message, options) =>
     document.querySelector("toast-message").show(message, options);
+
   // ==========================================================================
   customElements.define(
     "toast-message",
@@ -26,7 +29,7 @@
             createElement("style", {
               textContent:
                 `main{` +
-                `z-index:888;position:fixed;bottom:6px;right:6px;display:flex;flex-direction:column;gap:6px` +
+                `z-index:999;position:fixed;bottom:6px;right:6px;display:flex;flex-direction:column;gap:6px` +
                 `}` +
                 `.toast{` +
                 `background:var(--toast-message-background,#333);color:var(--toast-message-color,white);` +
@@ -36,7 +39,9 @@
                 `}` +
                 `.toast.show{opacity:1;transform:translateY(0)}`,
             }),
-            (this.main = createElement("main"))
+            (this.main = createElement("main", {
+              part: "main",
+            }))
           );
       }
       // ----------------------------------------------------------------------
@@ -67,6 +72,7 @@
       show(textContent, { delay = this.getAttribute("delay") || 5000 } = {}) {
         console.log(textContent, delay);
         const toast = createElement("div", {
+          part: "toast",
           className: "toast",
           textContent,
         });
