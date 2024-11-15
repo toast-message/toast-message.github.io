@@ -29,11 +29,11 @@
             createElement("style", {
               textContent:
                 // main container position and style
-                `:host{` +
+                `:host{` + // :host so user can style <toast-message>
                 `display:flex;flex-direction:column;gap:6px;` +
-                `z-index:999;position:fixed;bottom:6px;right:6px` +
+                `z-index:1000;position:fixed;bottom:6px;right:6px` +
                 `}` +
-                // toast messages style, can also be style with ::part(toast)
+                // toast messages style, can also be styled with ::part(toast)
                 `div{` +
                 `background:var(--toast-message-background,#333);color:var(--toast-message-color,white);` +
                 `box-shadow:0 6px 6px rgba(0, 0, 0, .5);` +
@@ -49,6 +49,7 @@
       }
       // ----------------------------------------------------------------------
       connectedCallback() {
+        this.id = this.id || "toast";
         this.listen({
           type: this.localName, // event name
           func: (evt) => this.show(evt.detail.message, evt.detail.delay),
@@ -70,16 +71,17 @@
       show(
         textContent,
         delay = this.getAttribute("delay") || 5000,
+        //
         toast = createElement("div", {
-          part: "toast",
+          part: "toast", // make it stylable with ::part(toast)
           textContent,
         })
       ) {
         this.shadowRoot.append(toast);
-        requestAnimationFrame(() => toast.classList.add("show")); // Trigger fade-in animation
+        toast.classList.add("show"); // Trigger fade-in animation
         setTimeout(() => {
-          toast.classList.remove("show");
           this.listen({
+            // wait for animation to end
             scope: toast,
             type: "transitionend",
             func: () => toast.remove(),
@@ -87,6 +89,7 @@
               once: true,
             },
           });
+          toast.classList.remove("show"); // Trigger fade-out animation
         }, delay);
       }
       // ----------------------------------------------------------------------
