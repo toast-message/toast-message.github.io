@@ -62,12 +62,16 @@
     <!-- <toast-message></toast-message> injected by element.js -->
     <!-- <toast-message delay="1500">21</toast-message> -->
     <script>
-        function showToast() {
-            let randomString = "MSG: " + Math.random().toString(36).substring(2, 7);
-            let delay = Math.floor(Math.random() * (4000 - 1000 + 1)) + 1000; // random delay between 1 and 4 seconds
+        function showToast(
+            msg = MSG.value || "MSG: " + Math.random().toString(36).substring(2, 7),
+            delay = Math.floor(Math.random() * (4000 - 1000 + 1)) + 1000 // random delay between 1 and 4 seconds
+        ) {
             // optional global function defined by element.js
-            window.showToastMessage(MSG.value || randomString, { delay: delay });
+            window.showToastMessage(msg, { delay });
         }
+        setTimeout(() => {
+            showToast("<toast-message delay='10000'>", 10000);
+        }, 3000);
     </script>
     <br>
     <br>
