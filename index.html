@@ -41,7 +41,9 @@
 <body>
     <h1>&lt;toast-message></h1>
     <p><a href="https://github.com/toast-message/toast-message.github.io">GitHub</a></p>
-    <p>Loading <code>https://toast-message.github.io/element.js</code> injects a &lt;toast-message> container tag at the end
+    <p>Loading <code>https://toast-message.github.io/element.js</code> injects a &lt;toast-message> container tTag at
+        the
+        end
         of the document<br>(no need to add it yourself)</p>
     <p>The Web Component listens at <code>document</code> level for a <code>"toast-message"</code> Event</p>
     <p>The <code>Event details</code> Object takes a <code>message [String]</code> and <b>optional</b>
@@ -69,7 +71,11 @@
             delay = Math.floor(Math.random() * (4000 - 1000 + 1)) + 1000 // random delay between 1 and 4 seconds
         ) {
             // optional global function defined by element.js
-            window.showToastMessage(msg, delay );
+            window.showToastMessage(msg, delay);
+
+            // by default the <toast-message id="toast"> is injected at the end of the document
+            // since browsers create a global variable for each id, we can access it directly
+            //toast.show(msg, delay);
         }
         setTimeout(() => {
             showToast("<toast-message delay='10000'>", 10000);
