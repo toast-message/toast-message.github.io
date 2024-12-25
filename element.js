@@ -68,6 +68,7 @@
         this.listeners?.forEach((remove) => remove());
       }
       // ----------------------------------------------------------------------
+      #listeners = [];
       show(
         textContent,
         delay = this.getAttribute("delay") || 5000,
@@ -87,7 +88,6 @@
         this.shadowRoot.append(toast);
         toast.classList.add("show"); // Trigger fade-in animation
         setTimeout(() => {
-          this.#listeners = this.#listeners || [];
           this.#listeners.push(
             this.listen({
               // wait for animation to end
