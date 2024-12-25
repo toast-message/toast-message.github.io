@@ -77,18 +77,30 @@
           textContent,
         })
       ) {
+        if (delay < 0) {
+          this.shadowRoot
+            .querySelectorAll("div")
+            .forEach((toast) => toast.remove());
+          this.#listeners.forEach((remove) => remove());
+          return;
+        }
         this.shadowRoot.append(toast);
         toast.classList.add("show"); // Trigger fade-in animation
         setTimeout(() => {
-          this.listen({
-            // wait for animation to end
-            scope: toast,
-            type: "transitionend",
-            func: () => toast.remove(),
-            options: {
-              once: true,
-            },
-          });
+          this.#listeners = this.#listeners || [];
+          this.#listeners.push(
+            this.listen({
+              // wait for animation to end
+              scope: toast,
+              type: "transitionend",
+              func: () => {
+                toast.remove();
+              },
+              options: {
+                once: true,
+              },
+            })
+          );
           toast.classList.remove("show"); // Trigger fade-out animation
         }, delay);
       }
