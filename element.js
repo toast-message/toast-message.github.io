@@ -1,9 +1,9 @@
-!(() => {
-  // one <toast-message> element is enough for the whole document
-
+!(( // start IFFE parameters
   // ========================================================================== Helper function
-  const createElement = (tag, props = {}) =>
-    Object.assign(document.createElement(tag), props);
+  createElement = (tag, props = {}) =>
+    Object.assign(document.createElement(tag), props)
+) => {
+  // one <toast-message> element is enough for the whole document
 
   // ========================================================================== append <toast-message> element to the document
   // injects the toast-message element into the document!!
@@ -34,16 +34,14 @@
                 `z-index:1000;position:fixed;bottom:6px;right:6px` +
                 `}` +
                 // toast messages style, can also be styled with ::part(toast)
-                `div{` +
+                `toast-show{` +
                 `background:var(--toast-message-background,#333);color:var(--toast-message-color,white);` +
                 `box-shadow:0 6px 6px rgba(0, 0, 0, .5);` +
                 `padding:6px 12px;border-radius:4px;` +
                 `opacity:0;` +
                 `transform:translateY(50%);transition:transform 0.25s, opacity 0.25s` +
                 `}` +
-                `.show{` +
-                `opacity:1;transform:translateY(0)` +
-                `}`,
+                `.show{opacity:1;transform:translateY(0)}`,
             })
           );
       }
@@ -56,9 +54,11 @@
         });
       }
       // ---------------------------------------------------------------------- listeners
-      listen({ type, func, scope = document, options = {} }) {
+      listen({ type, func, scope = document, options = {},
+        //! define remove Function
+        remove = () => scope.removeEventListener(type, func, options)
+      }) {
         scope.addEventListener(type, func);
-        let remove = () => scope.removeEventListener(type, func, options);
         this.listeners = this.listeners || [];
         this.listeners.push(remove);
         return remove;
@@ -72,7 +72,7 @@
         textContent,
         delay = this.getAttribute("delay") || 5000,
         //
-        toast = createElement("div", {
+        toast = createElement("toast-show", {
           part: "toast", // make it stylable with ::part(toast)
           textContent,
         })
